@@ -4,5 +4,6 @@
  * @date   2017/9/30 10:33
  */
 return [
-    'app_debug' => true
+    'app_debug' => true,
+    'url_route_on'           => true,
 ];
