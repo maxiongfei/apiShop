@@ -9,4 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 use think\Route;
+Route::get('/',function(){
+    return "<marquee direction='down'><h1>欢迎使用apiShop Test 系统</h1></marquee>";
+});
 Route::resource(':version/banner','api/:version.Banner');
