@@ -1,0 +1,18 @@
+{__NOLAYOUT__}
+<div style="margin: 36px 30px">
+    <form data-url="{:url('role/save')}" id="role_form" class="layui-form layui-form-pane"  >
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">角色名称</label>
+                <div class="layui-input-inline">
+                    <input name="title" autocomplete="off" placeholder="请输入角色名" class="layui-input role_title" type="text">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    seajs.use("admin_js/role/create",function(create){
+        window['addRole'] = create.addRole;
+    })
+</script>

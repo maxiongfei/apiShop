@@ -1,4 +1,5 @@
 <?php
+//扩展配置  文件名为key  return 内容为值
 use think\Env;
 /**
  * @author 马雄飞 <xiongfei.ma@pactera.com>
@@ -10,21 +11,21 @@ return [
     // 数据库连接DSN配置
     'dsn'             => '',
     // 服务器地址
-    'hostname'        => Env::get('hostname'),
+    'hostname'        => Env::get('database.hostname'),
     // 数据库名
-    'database'        => Env::get('database'),
+    'database'        => Env::get('database.database'),
     // 数据库用户名
-    'username'        => Env::get('username'),
+    'username'        => Env::get('database.username'),
     // 数据库密码
-    'password'        => Env::get('password'),
+    'password'        => Env::get('database.password'),
     // 数据库连接端口
-    'hostport'        => Env::get('hostport'),
+    'hostport'        => Env::get('database.hostport'),
     // 数据库连接参数
     'params'          => [],
     // 数据库编码默认采用utf8
     'charset'         => 'utf8',
     // 数据库表前缀
-    'prefix'          => '',
+    'prefix'          => 'as_',
     // 数据库调试模式
     'debug'           => false,
     // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)

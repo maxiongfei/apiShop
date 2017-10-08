@@ -1,0 +1,33 @@
+{__NOLAYOUT__}
+<div style="margin: 36px 30px">
+    <form data-url="{:url('Menu/save')}" id="group_form" class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">菜单名称</label>
+                <div class="layui-input-inline">
+                    <input name="title" autocomplete="off" placeholder="请输入菜单名称" class="layui-input menu_title" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">菜单图标</label>
+                <div class="layui-input-inline">
+                    <input name="icon" autocomplete="off" placeholder="请输入菜单图标" class="layui-input icon_title" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否展开</label>
+            <div class="layui-input-block">
+                <input type="radio" name="is_spread" value="1" title="是">
+                <input type="radio" name="is_spread" value="0" title="否" checked>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    seajs.use("admin_js/menu/create", function (create) {
+        window['addMenu'] = create.addMenu;
+    })
+</script>

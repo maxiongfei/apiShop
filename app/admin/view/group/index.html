@@ -1,0 +1,53 @@
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
+        </div>
+        <a class="layui-btn search_btn">查询</a>
+    </div>
+    <div class="layui-inline">
+        {:BAC('Group/create','',['name'=>'添加角色','callback'=>'addGroup','size'=>['40%', '40%'],'class'=>"layui-btn
+        layui-btn-normal"])}
+    </div>
+</blockquote>
+<div class="layui-form">
+    <table class="layui-table">
+        <colgroup>
+            <col width="50">
+            <col width="50">
+            <col width="50">
+            <col width="50">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>角色名称</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            {foreach $groups as $group}
+                <tr>
+                    <td>{$group.id}</td>
+                    <td>{$group.title}</td>
+                    <td>{if condition="$group['status'] == 1"} 启用 {else /} 禁用 {/if}</td>
+                    <td>
+                        {:BAC("Group/read",['id' => $group['id']],['name'=>'角色授权','callback'=>'editGroup','size'=>['40%',
+                        '40%'],'class'=>"layui-btn layui-btn-normal"])}
+                        {:BAC("Group/edit",['id' => $group['id']],['name'=>'编辑','callback'=>'editGroup','size'=>['40%',
+                        '40%'],'class'=>"layui-btn layui-btn-normal"])}
+                        {:BAC('Group/delete',['id'=>$group['id']],['name'=>'删除','type'=>'void','class'=>"j-deleteRole
+                        layui-btn layui-btn-normal"])}
+                    </td>
+                </tr>
+            {/foreach}
+        </tbody>
+    </table>
+</div>
+<div id="page"></div>
+<script>
+    seajs.use("admin_js/group/index", function (index) {
+        index.deleteGroup();
+    })
+</script>

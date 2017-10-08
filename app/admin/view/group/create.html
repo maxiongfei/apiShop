@@ -1,0 +1,18 @@
+{__NOLAYOUT__}
+<div style="margin: 36px 30px">
+    <form data-url="{:url('group/save')}" id="group_form" class="layui-form layui-form-pane"  >
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">角色名称</label>
+                <div class="layui-input-inline">
+                    <input name="title" autocomplete="off" placeholder="请输入角色名" class="layui-input group_title" type="text">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    seajs.use("admin_js/group/create",function(create){
+        window['addGroup'] = create.addGroup;
+    })
+</script>

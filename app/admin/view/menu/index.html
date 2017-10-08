@@ -1,0 +1,70 @@
+    <link href="__STATIC__/common/plugin/jquery-treetable/css/jquery.treetable.css" rel="stylesheet">
+    <style>
+        table.treetable tr.collapsed span.indenter a {
+            background-image: url('__STATIC__/admin/images/add.png');
+        }
+        table.treetable tr.expanded span.indenter a {
+            background-image: url("__STATIC__/admin/images/close.png");
+            /*background-image: url("http://html.pacteracmf.51unite.com/Common/plugins/jquery-treetable/images/minus.jpg");*/
+
+
+        }
+    </style>
+
+<blockquote class="layui-elem-quote">
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
+        </div>
+        <a class="layui-btn search_btn">查询</a>
+    </div>
+    <div class="layui-inline">
+        {:BAC('Menu/create','',['name'=>'添加菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn
+        layui-btn-normal"])}
+    </div>
+</blockquote>
+<div class="layui-form news_list">
+    <table class="layui-table" id="fold-table">
+        <colgroup>
+            <col width="50">
+            <col width="9%">
+            <col width="9%">
+            <col width="9%">
+            <col width="9%">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>菜单名称</th>
+            <th>排序</th>
+            <th>是否展开</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            {foreach $menus as $menu}
+                <tr data-tt-id="{$menu.id}">
+                    <td>{$menu.title}</td>
+                    <td>{$menu.sort}</td>
+                    <td>{$menu.is_spread}</td>
+                    <td>操作</td>
+                </tr>
+                {notempty name="menu['_child']"}
+                    {foreach $menu['_child'] as $var}
+                        <tr data-tt-id="{$var.id}" data-tt-parent-id="{$var.parent_id}">
+                            <td>{$var.title}</td>
+                            <td>{$var.sort}</td>
+                            <td>{$var.is_spread}</td>
+                            <td>操作</td>
+                        </tr>
+                    {/foreach}
+                {/notempty}
+            {/foreach}
+        </tbody>
+    </table>
+</div>
+<div id="page"></div>
+<script>
+    seajs.use('admin_js/menu/index', function (index) {
+        index.init();
+    });
+</script>
