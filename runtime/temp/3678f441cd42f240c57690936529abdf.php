@@ -1,4 +1,5 @@
-{__NOLAYOUT__}
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:56:"H:\www\apiShop\public/../app/admin\view\index\index.html";i:1507373705;}*/ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,9 +13,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <!--<link rel="icon" href="favicon.ico">-->
-    <link rel="stylesheet" type="text/css" href="__STATIC__/admin/plugin/layui/css/layui.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/main.css" media="all" />
+    <link rel="stylesheet" href="__STATIC__/admin/plugin/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
+    <link rel="stylesheet" href="__STATIC__/admin/css/main.css" media="all" />
 </head>
 <body class="main_body">
 <div class="layui-layout layui-layout-admin">
@@ -126,7 +127,7 @@
             </ul>
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
-                    <iframe src="{:url('index/main')}"></iframe>
+                    <iframe src="<?php echo url('index/main'); ?>"></iframe>
                 </div>
             </div>
         </div>
