@@ -19,8 +19,7 @@
         <a class="layui-btn search_btn">查询</a>
     </div>
     <div class="layui-inline">
-        {:BAC('Menu/create','',['name'=>'添加菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn
-        layui-btn-normal"])}
+        {:BAC('Menu/create','',['name'=>'添加菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal"])}
     </div>
 </blockquote>
 <div class="layui-form news_list">
@@ -30,14 +29,14 @@
             <col width="9%">
             <col width="9%">
             <col width="9%">
-            <col width="9%">
+            <col width="20%">
         </colgroup>
         <thead>
         <tr>
             <th>菜单名称</th>
             <th>排序</th>
             <th>是否展开</th>
-            <th>操作</th>
+            <th width="20%">操作</th>
         </tr>
         </thead>
         <tbody>
@@ -46,7 +45,11 @@
                     <td>{$menu.title}</td>
                     <td>{$menu.sort}</td>
                     <td>{$menu.is_spread}</td>
-                    <td>操作</td>
+                    <td>
+                        {:BAC('Menu/create',['parent_id'=>$menu['id']],['name'=>'添加子菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal"])}
+                        {:BAC('Menu/create',['id'=>$menu['id']],['name'=>'删除菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal"])}
+                        {:BAC('Menu/edit',['id'=>$menu['id']],['name'=>'编辑菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal"])}
+                    </td>
                 </tr>
                 {notempty name="menu['_child']"}
                     {foreach $menu['_child'] as $var}
@@ -54,7 +57,11 @@
                             <td>{$var.title}</td>
                             <td>{$var.sort}</td>
                             <td>{$var.is_spread}</td>
-                            <td>操作</td>
+                            <td>
+                                {:BAC('Menu/create',['parent_id'=>$menu['id']],['name'=>'添加操作','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal"])}
+                                {:BAC('Menu/create',['id'=>$menu['id']],['name'=>'删除菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal"])}
+                                {:BAC('Menu/edit',['id'=>$menu['id']],['name'=>'编辑菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal"])}
+                            </td>
                         </tr>
                     {/foreach}
                 {/notempty}
