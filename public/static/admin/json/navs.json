@@ -2,31 +2,31 @@
   {
     "title": "后台首页",
     "icon": "icon-computer",
-    "href": "http://api.ma/admin/index/index",
+    "href": "https://api.bytesclub.com/admin/index/index",
     "spread": false
   },
   {
     "title": "菜单管理",
     "icon": "&#xe64c;",
-    "href": "http://api.ma/admin/menu/index",
+    "href": "https://api.bytesclub.com/admin/menu/index",
     "spread": false
   },
   {
     "title": "系统管理",
     "icon": "icon-text",
-    "href": "http://api.ma/admin/index/index",
+    "href": "https://api.bytesclub.com/admin/index/index",
     "spread": false,
     "children": [
       {
         "title": "角色管理",
         "icon": "&#xe609;",
-        "href": "http://api.ma/admin/Group/index",
+        "href": "https://api.bytesclub.com/admin/Group/index",
         "spread": false
       },
       {
         "title": "权限管理",
         "icon": "&#xe61c;",
-        "href": "http://api.ma/admin/permission/index",
+        "href": "https://api.bytesclub.com/admin/permission/index",
         "spread": false
       },
       {
