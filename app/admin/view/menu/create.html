@@ -1,6 +1,7 @@
 {__NOLAYOUT__}
 <div style="margin: 36px 30px">
-    <form data-url="{:url('Menu/save')}" id="group_form" class="layui-form">
+    <form data-url="{:url('Menu/save')}" id="create_form" class="layui-form">
+        <input type="hidden" name="type" value="1">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">菜单名称</label>
@@ -9,6 +10,16 @@
                 </div>
             </div>
         </div>
+        {present name="data['parent_id']"}
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">菜单链接</label>
+                <div class="layui-input-inline">
+                    <input name="name" autocomplete="off" placeholder="请输入菜单链接" class="layui-input name_title" type="text">
+                </div>
+            </div>
+        </div>
+        {/present}
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">菜单图标</label>
@@ -18,12 +29,26 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">是否展开</label>
-            <div class="layui-input-block">
-                <input type="radio" name="is_spread" value="1" title="是">
-                <input type="radio" name="is_spread" value="0" title="否" checked>
+            <div class="layui-inline">
+                <label class="layui-form-label">菜单排序</label>
+                <div class="layui-input-inline">
+                    <input name="sort" autocomplete="off" placeholder="请输入菜单排序" class="layui-input sort_title" type="number">
+                </div>
             </div>
         </div>
+        {notpresent name="data['parent_id']"}
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否展开</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="is_spread" value="1" title="是">
+                    <input type="radio" name="is_spread" value="0" title="否" checked>
+                </div>
+            </div>
+        {else /}
+            <input type="hidden" name="parent_id" value="{$data['parent_id']}">
+            <input type="hidden" name="mark" value="menu">
+        {/notpresent}
+
     </form>
 </div>
 <script>

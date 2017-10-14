@@ -228,7 +228,7 @@ layui.config({
                 var btn = layero.find('.layui-layer-btn');
                 btn.css('text-align', 'center');
                 btn.on("click",function(){
-                    window.sessionStorage.setItem("showNotice","true");
+                    // window.sessionStorage.setItem("showNotice","true");
                 })
                 if($(window).width() > 432){  //如果页面宽度不足以显示顶部“系统公告”按钮，则不提示
                     btn.on("click",function(){
@@ -241,12 +241,12 @@ layui.config({
         });
     }
     //判断是否处于锁屏状态(如果关闭以后则未关闭浏览器之前不再显示)
-    if(window.sessionStorage.getItem("lockcms") != "true" && window.sessionStorage.getItem("showNotice") != "true"){
+   /* if(window.sessionStorage.getItem("lockcms") != "true" && window.sessionStorage.getItem("showNotice") != "true"){
         showNotice();
     }
     $(".showNotice").on("click",function(){
         showNotice();
-    })
+    })*/
 
     //刷新后还原打开的窗口
     if(window.sessionStorage.getItem("menu") != null){

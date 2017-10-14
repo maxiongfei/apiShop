@@ -43,9 +43,9 @@ class Base extends Model
      * @author xiongfei.ma@pactera.com
      * @date
      */
-    public function getAll($where = [])
+    public function getAll($where = [],$order = [])
     {
-        $data = $this::all($where);
+        $data = $this->where($where)->order($order)->select();
         if($data) {
             $data = collection($data)->toArray();
         }

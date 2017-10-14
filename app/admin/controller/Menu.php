@@ -2,13 +2,13 @@
 
 namespace app\admin\controller;
 
-use think\Controller;
 use think\Request;
 use app\admin\model\Menu as MenuModel;
 
-class Menu extends Controller
+class Menu extends Base
 {
     protected $model;
+
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
@@ -22,25 +22,37 @@ class Menu extends Controller
      */
     public function index()
     {
-        $menus = $this->model->getAll();
-        $menus = list_to_tree($menus,'id','parent_id');
-        return view('index',['menus' => $menus]);
+
+        return view('index'/*, ['menus' => $this->menus]*/);
     }
 
     /**
      * 显示创建资源表单页.
      *
-     * @return \think\Response
+     * @param Request $request
+     *
+     * @return \think\response\View
+     *
+     * @author xiongfei.ma@pactera.com
+     * @date   2017-10-10 22:08:21
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('create');
+        return view('create', ['data' => $request->param()]);
+    }
+
+    public function action(Request $request)
+    {
+        $data = $request->param();
+        $actions = $this->model->getAll(['parent_id' => $data['id']]);
+        return view('action', ['data' => $data, 'actions' => $actions]);
     }
 
     /**
      * 保存新建的资源
      *
-     * @param  \think\Request  $request
+     * @param  \think\Request $request
+     *
      * @return \think\Response
      */
     public function save(Request $request)
@@ -49,18 +61,16 @@ class Menu extends Controller
             $data = $request->param();
             $res = $this->model->saveMenu($data);
             $res['url'] = url('index');
+
             return json($res);
         }
-
-
-
-
     }
 
     /**
      * 显示指定的资源
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \think\Response
      */
     public function read($id)
@@ -71,7 +81,8 @@ class Menu extends Controller
     /**
      * 显示编辑资源表单页.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \think\Response
      */
     public function edit($id)
@@ -82,8 +93,9 @@ class Menu extends Controller
     /**
      * 保存更新的资源
      *
-     * @param  \think\Request  $request
-     * @param  int  $id
+     * @param  \think\Request $request
+     * @param  int            $id
+     *
      * @return \think\Response
      */
     public function update(Request $request, $id)
@@ -94,7 +106,8 @@ class Menu extends Controller
     /**
      * 删除指定资源
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \think\Response
      */
     public function delete($id)

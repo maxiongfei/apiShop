@@ -1,0 +1,57 @@
+{__NOLAYOUT__}
+<div style="margin: 36px 30px">
+    <form data-url="{:url('Menu/save')}" id="action_form" class="layui-form">
+        <input type="hidden" name="parent_id" value="{$data['parent_id']}">
+        <input type="hidden" name="type" value="mark">
+        <input type="hidden" name="type" value="2">
+        <blockquote class="layui-elem-quote news_search">
+            <div class="layui-inline">
+                <a class="layui-btn layui-btn-normal action-add-btn">新增</a>
+            </div>
+        </blockquote>
+        <table class="layui-table" id="fold-table">
+            <colgroup>
+                <col width="50">
+                <col width="9%">
+                <col width="9%">
+                <col width="9%">
+                <col width="20%">
+            </colgroup>
+            <thead>
+            <tr>
+                <th width="20%">节点名称</th>
+                <th width="20%">控制器</th>
+                <th width="20%">排序</th>
+                <th width="20%">是否隐藏</th>
+                <th width="20%">操作</th>
+            </tr>
+            </thead>
+            <tbody class="action-table">
+            {notempty name="actions"}
+            {foreach $actions as $action}
+            <tr>
+                <td><input type="text" class="layui-input" name="old[$action['id']][title]" value="{$action['title']}"></td>
+                <td><input type="text" class="layui-input" name="old[$action['id']][name]" value="{$action['name']}"></td>
+                <td><input type="text" class="layui-input" name="old[$action['id']][sort]" value="{$action['sort']}"></td>
+                <td>
+                    <select name="old[$action['id']]['is_show']">
+                        <option value="1" {eq name="action['is_show']" value="1"}selected{/eq}>显示</option>
+                        <option value="2" {eq name="action['is_show']" value="0"}selected{/eq}>隐藏</option>
+                    </select>
+                </td>
+                <td>
+                    <a class="layui-btn layui-btn-danger action-delete-btn">删除</a>
+                </td>
+            </tr>
+            {/foreach}
+            {/notempty}
+            </tbody>
+        </table>
+    </form>
+</div>
+<script>
+    seajs.use("admin_js/menu/action", function (action) {
+        window['addActions'] = action.addActions;
+        action.init();
+    })
+</script>
