@@ -46,9 +46,11 @@
                     <td>{$menu.sort}</td>
                     <td>{$menu.is_spread}</td>
                     <td>
-                        {:BAC('Menu/create',['parent_id'=>$menu['id']],['name'=>'添加子菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal"])}
-                        {:BAC('Menu/create',['id'=>$menu['id']],['name'=>'删除菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal"])}
-                        {:BAC('Menu/edit',['id'=>$menu['id']],['name'=>'编辑菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal"])}
+                        {:BAC('Menu/create',['parent_id'=>$menu['id']],['name'=>'添加子菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal  layui-btn-mini"])}
+                        {:BAC('Menu/edit',['id'=>$menu['id']],['name'=>'编辑菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-mini"])}
+                        {empty name="menu['_child']"}
+                            {:BAC('Menu/delete',['id'=>$menu['id']],['name'=>'删除菜单','type'=>'void','class'=>"layui-btn layui-btn-danger layui-btn-mini j-deleteMenus"])}
+                        {/empty}
                     </td>
                 </tr>
                 {notempty name="menu['_child']"}
@@ -58,9 +60,11 @@
                             <td>{$var.sort}</td>
                             <td>{$var.is_spread}</td>
                             <td>
-                                {:BAC('Menu/action',['parent_id'=>$var['id'],'id'=>$var['id']],['name'=>'添加操作','callback'=>'addActions','size'=>['80%', '80%'],'class'=>"layui-btn layui-btn-normal"])}
-                                {:BAC('Menu/create',['id'=>$var['id']],['name'=>'删除菜单','callback'=>'addMenu','size'=>['40%', '60%'],'class'=>"layui-btn layui-btn-normal"])}
-                                {:BAC('Menu/edit',['id'=>$var['id']],['name'=>'编辑菜单','callback'=>'addMenu','class'=>"layui-btn layui-btn-normal"])}
+                                {:BAC('Menu/action',['parent_id'=>$var['id'],'id'=>$var['id']],['name'=>'添加子节点','callback'=>'addActions','size'=>['80%', '80%'],'class'=>"layui-btn layui-btn-normal  layui-btn-mini"])}
+                                {:BAC('Menu/edit',['id'=>$var['id']],['name'=>'编辑菜单','callback'=>'addMenu','class'=>"layui-btn layui-btn-mini"])}
+                                {empty name="var['_child']"}
+                                    {:BAC('Menu/delete',['id'=>$var['id']],['name'=>'删除子菜单','type'=>'void','class'=>"layui-btn layui-btn-danger layui-btn-mini j-deleteMenu"])}
+                                {/empty}
                             </td>
                         </tr>
                     {/foreach}

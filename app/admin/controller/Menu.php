@@ -23,7 +23,9 @@ class Menu extends Base
     public function index()
     {
 
-        return view('index'/*, ['menus' => $this->menus]*/);
+        $menus = $this->model->getAll();
+        $menus = list_to_tree($menus, 'id', 'parent_id');
+        return view('index', ['menus' => $menus]);
     }
 
     /**
@@ -87,7 +89,9 @@ class Menu extends Base
      */
     public function edit($id)
     {
-        //
+        $menu = $this->model->getOne(['id' => $id]);
+
+        return view('edit',['menu'=>$menu]);
     }
 
     /**
@@ -112,6 +116,11 @@ class Menu extends Base
      */
     public function delete($id)
     {
-        //
+        $res = $this->model->deleteIt(['id' => $id]);
+        if ($res !== false) {
+            return json(['status' => 1, 'msg' => '删除成功' ,'url' => url('index')]);
+        } else {
+            return json(['status' => 0, 'msg' => '删除失败']);
+        }
     }
 }

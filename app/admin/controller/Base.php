@@ -17,22 +17,13 @@ class Base extends Controller
 {
 
 
-    protected $menus;
     protected $path = STATIC_PATH .'admin/json/navs.json';
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
         if(!file_exists($this->path)){
             $menuModel = new \app\admin\model\Menu();
-            $menus = $menuModel->getAll(['type' => 1],['sort'=>'asc']);
-            array_walk($menus,function(&$val){
-                if(!empty($val['name'])){
-                    $val['name'] = url($val['name']);
-                }
-            });
-            $menus = list_to_tree($menus, 'id', 'parent_id');
-            $this->menus = $menus;
-            $this->menu1();
+            $menuModel->refreshMenus();
         }
 
 
@@ -44,12 +35,6 @@ class Base extends Controller
             $this->error('你没有权限访问');
         }*/
     }
-
-    public function menu1()
-    {
-        file_put_contents($this->path,json_encode($this->menus));
-    }
-
     public function menu2()
     {
         $this->assign('menus',$this->menus);

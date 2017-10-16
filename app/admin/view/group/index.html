@@ -33,12 +33,9 @@
                     <td>{$group.title}</td>
                     <td>{if condition="$group['status'] == 1"} 启用 {else /} 禁用 {/if}</td>
                     <td>
-                        {:BAC("Group/read",['id' => $group['id']],['name'=>'角色授权','callback'=>'editGroup','size'=>['40%',
-                        '40%'],'class'=>"layui-btn layui-btn-normal"])}
-                        {:BAC("Group/edit",['id' => $group['id']],['name'=>'编辑','callback'=>'editGroup','size'=>['40%',
-                        '40%'],'class'=>"layui-btn layui-btn-normal"])}
-                        {:BAC('Group/delete',['id'=>$group['id']],['name'=>'删除','type'=>'void','class'=>"j-deleteRole
-                        layui-btn layui-btn-normal"])}
+                        {:BAC("Group/read",['id' => $group['id']],['name'=>'角色授权','callback'=>'authorizeRole','size'=>['80%', '90%'],'class'=>"layui-btn layui-btn-normal  layui-btn-mini"])}
+                        {:BAC("Group/edit",['id' => $group['id']],['name'=>'编辑','callback'=>'editGroup','size'=>['40%','40%'],'class'=>"layui-btn layui-btn-mini"])}
+                        {:BAC('Group/delete',['id'=>$group['id']],['name'=>'删除','type'=>'void','class'=>"j-deleteGroup layui-btn layui-btn-danger layui-btn-mini"])}
                     </td>
                 </tr>
             {/foreach}

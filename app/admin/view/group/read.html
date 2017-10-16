@@ -1,0 +1,62 @@
+<div style="margin: 30px;">
+    <form class="layui-form" data-url="{:url('Group/saveAuthorize')}" id="authorize_form">
+        <input type="hidden" name="id" value="{$id}">
+        <table class="layui-table" lay-skin="line ">
+            {foreach $allMenus as $allMenu}
+            <thead>
+            <tr>
+                <th style="background-color:#d2d2d2;color: #009688;font-size: 16px;">{$allMenu['title']}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {notempty name="allMenu['_child']"}
+            {foreach $allMenu['_child'] as $menu}
+            <thead>
+            <tr>
+                <th>
+                    <input
+                            type="checkbox"
+                            name=node[]
+                            lay-skin="primary"
+                            {present name="menu['checked']" }checked='checked'{/present}
+                            lay-filter="allChoose"
+                            value="{$allMenu['id']},{$menu['id']}"
+                    >
+                    {$menu['title']}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <ul class="layui-form layui-form-table">
+                        {notempty name="menu['_child']"}
+                        {foreach $menu['_child'] as $node}
+                        <li style="float: left">
+                            <input
+                                    type="checkbox"
+                                    name="node[]"
+                                    {present name="node['checked']" }checked='checked'{/present}
+                                    value="{$allMenu['id']},{$menu['id']},{$node['id']}"
+                                    lay-skin="primary"
+                                    title="{$node['title']}"
+                            >
+                        </li>
+                        {/foreach}
+                        {/notempty}
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+            {/foreach}
+            {/notempty}
+            </tbody>
+            {/foreach}
+        </table>
+    </form>
+</div>
+<script>
+    seajs.use("admin_js/group/read", function (read) {
+        window['authorizeRole'] = read.authorizeRole;
+    });
+</script>

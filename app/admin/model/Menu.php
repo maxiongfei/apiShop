@@ -16,7 +16,7 @@ class Menu extends Base
 
     public function saveMenu($data)
     {
-
+        $res = false;
         //子菜单或者节点添加
         if(isset($data['parent_id']) && !empty($data['parent_id'])){
             if(isset($data['mark']) && !empty($data['mark']) && $data['mark'] == 'menu'){
@@ -62,14 +62,37 @@ class Menu extends Base
             //主菜单添加
             $res = $this->saveMenuOnly($data);
         }
-        if ($res) {
-            return ['status' => 1, 'msg' => '添加成功'];
+        if ($res !== false) {
+            $this->refreshMenus();
+            return ['status' => 1, 'msg' => '成功'];
         } else {
-            return ['status' => 0, 'msg' => '添加失败'];
+            return ['status' => 0, 'msg' => '失败'];
         }
     }
     public function saveMenuOnly($data)
     {
-        return $this->allowField(true)->save($data);
+        $isUpdate = false;
+        if(isset($data['id']) && !empty($data['id'])){
+            $isUpdate = true;
+        }
+        return $this->isUpdate($isUpdate)->allowField(true)->save($data);
+    }
+
+    /**
+     * 更新menu
+     *
+     * @author xiongfei.ma@pactera.com
+     * @date 2017年10月15日14:16:12
+     */
+    public function refreshMenus()
+    {
+        $menus = $this->getAll(['type' => 1],['sort'=>'asc']);
+        array_walk($menus,function(&$val){
+            if(!empty($val['name'])){
+                $val['name'] = url($val['name']);
+            }
+        });
+        $menus = list_to_tree($menus, 'id', 'parent_id');
+        file_put_contents($this->path,json_encode($menus));
     }
 }

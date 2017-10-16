@@ -12,6 +12,8 @@ use think\Model;
 
 class Base extends Model
 {
+    protected $path = STATIC_PATH .'admin/json/navs.json';
+
     //自定义初始化
     protected function initialize()
     {

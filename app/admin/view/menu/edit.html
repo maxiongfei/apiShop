@@ -2,12 +2,12 @@
 <div style="margin: 36px 30px">
     <form data-url="{:url('Menu/save')}" id="create_form" class="layui-form">
         <input type="hidden" name="type" value="1">
-        <input type="hidden" name="mark" value="menu">
+        <input type="hidden" name="id" value="{$menu.id}">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">菜单名称</label>
                 <div class="layui-input-inline">
-                    <input name="title" autocomplete="off" placeholder="请输入菜单名称" class="layui-input menu_title" type="text">
+                    <input name="title" autocomplete="off" value="{$menu.title}" placeholder="请输入菜单名称" class="layui-input menu_title" type="text">
                 </div>
             </div>
         </div>
@@ -16,7 +16,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">菜单链接</label>
                 <div class="layui-input-inline">
-                    <input name="name" autocomplete="off" placeholder="请输入菜单链接" class="layui-input name_title" type="text">
+                    <input name="name" autocomplete="off" value="{$menu.name}" placeholder="请输入菜单链接" class="layui-input name_title" type="text">
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">菜单图标</label>
                 <div class="layui-input-inline">
-                    <input name="icon" autocomplete="off" placeholder="请输入菜单图标" class="layui-input icon_title" type="text">
+                    <input name="icon" autocomplete="off" value="{$menu.icon}" placeholder="请输入菜单图标" class="layui-input icon_title" type="text">
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">菜单排序</label>
                 <div class="layui-input-inline">
-                    <input name="sort" autocomplete="off" placeholder="请输入菜单排序" class="layui-input sort_title" type="number">
+                    <input name="sort" autocomplete="off" value="{$menu.sort}" placeholder="请输入菜单排序" class="layui-input sort_title" type="number">
                 </div>
             </div>
         </div>
@@ -41,12 +41,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">是否展开</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="is_spread" value="1" title="是">
-                    <input type="radio" name="is_spread" value="0" title="否" checked>
+                    <input type="radio" name="is_spread" value="1" {eq name="menu.is_spread" value='1'}checked{/eq} title="是">
+                    <input type="radio" name="is_spread" value="0" {eq name="menu.is_spread" value='0'}checked{/eq} title="否">
                 </div>
             </div>
         {else /}
             <input type="hidden" name="parent_id" value="{$data['parent_id']}">
+            <input type="hidden" name="mark" value="menu">
         {/notpresent}
 
     </form>
