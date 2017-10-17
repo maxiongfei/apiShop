@@ -8,11 +8,12 @@
 
 namespace app\admin\model;
 
+use extend\lib\Str;
 use think\Model;
 
 class Base extends Model
 {
-    protected $path = STATIC_PATH .'admin/json/navs.json';
+    protected $path = STATIC_PATH . 'admin/json/navs.json';
 
     //自定义初始化
     protected function initialize()
@@ -37,25 +38,53 @@ class Base extends Model
     }
 
     /**
+     * 获取所有数据
      *
      * @param array $where
+     * @param array $order
      *
      * @return array|false|static[]
      *
      * @author xiongfei.ma@pactera.com
      * @date
      */
-    public function getAll($where = [],$order = [])
+    public function getAll($where = [], $order = [])
     {
         $data = $this->where($where)->order($order)->select();
-        if($data) {
+        if ($data) {
             $data = collection($data)->toArray();
         }
+
         return empty($data) ? [] : $data;
     }
 
+    /**
+     * 根据条件砂囊少
+     *
+     * @param array $where
+     *
+     * @return int
+     *
+     * @author xiongfei.ma@pactera.com
+     * @date   2017年10月17日23:15:47
+     */
     public function deleteIt($where = [])
     {
         return $this::destroy($where);
+    }
+
+    /**
+     * 生成一个8位随机字符
+     * @param int $len
+     * @param int $type
+     *
+     * @return string
+     *
+     * @author xiongfei.ma@pactera.com
+     * @date 2017年10月17日23:18:31
+     */
+    public function salt($len = 8, $type = 0)
+    {
+        return \app\lib\Str::randString($len, $type);
     }
 }

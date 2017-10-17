@@ -1,0 +1,48 @@
+{__NOLAYOUT__}
+<div style="margin: 36px 30px">
+    <form data-url="{:url('Member/save')}" id="member_form" class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">账号</label>
+                <div class="layui-input-inline">
+                    <input name="account" autocomplete="off" placeholder="请输入管理员账号" class="layui-input member_account"
+                           type="text">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">姓名</label>
+                <div class="layui-input-inline">
+                    <input name="name" autocomplete="off" placeholder="请输入管理员姓名" class="layui-input member_name"
+                           type="text">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-inline">
+                    <input name="password" autocomplete="off" placeholder="请输入管理员密码" class="layui-input member_password"
+                           type="password">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限</label>
+            <div class="layui-inline">
+                <select name="group_id">
+                    <option value="">请选择角色</option>
+                    {foreach $groups as $group}
+                        <option value="{$group['id']}">{$group['title']}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    seajs.use("admin_js/member/create", function (create) {
+        window['addMember'] = create.addMember;
+    })
+</script>
