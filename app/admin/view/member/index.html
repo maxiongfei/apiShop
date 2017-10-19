@@ -38,7 +38,7 @@
             <td>{$member.salt}</td>
             <td>{if condition="$member['status'] == 1"} 启用 {else /} 禁用 {/if}</td>
             <td>
-                {:BAC("Member/edit",['id' => $member['id']],['name'=>'编辑','callback'=>'editMember','size'=>['40%','40%'],'class'=>"layui-btn layui-btn-mini"])}
+                {:BAC("Member/edit",['id' => $member['id']],['name'=>'编辑','callback'=>'editMember','size'=>['500px', '80%'],'class'=>"layui-btn layui-btn-mini"])}
                 {:BAC('Member/delete',['id'=>$member['id']],['name'=>'删除','type'=>'void','class'=>"j-deleteMember layui-btn layui-btn-danger layui-btn-mini"])}
             </td>
         </tr>

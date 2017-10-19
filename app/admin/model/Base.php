@@ -8,7 +8,7 @@
 
 namespace app\admin\model;
 
-use extend\lib\Str;
+use app\lib\Str;
 use think\Model;
 
 class Base extends Model
@@ -85,6 +85,6 @@ class Base extends Model
      */
     public function salt($len = 8, $type = 0)
     {
-        return \app\lib\Str::randString($len, $type);
+        return Str::randString($len, $type);
     }
 }

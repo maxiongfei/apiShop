@@ -3,9 +3,9 @@ define(function (require, exports, module) {
     var laypage = layui.laypage;
     module.exports = {
         deleteMember:function(){
-            $(".j-deleteGroup").click(function(){
+            $(".j-deleteMember").click(function(){
                 var url  = $(this).attr('url');
-                layer.confirm('确定删除该角色？', {
+                layer.confirm('确定删除该用户？', {
                     btn: ['删除', '取消']
                 }, function(index, layero){
                     var load = '';
@@ -30,19 +30,5 @@ define(function (require, exports, module) {
                 });
             });
         },
-        pages:function(info,url){
-            laypage({
-                cont: $("#page")
-                ,pages: info.totalPages //总页数
-                ,groups: info.pageSize //连续显示分页数
-                ,curr: info.p
-                ,jump: function (obj, first) {
-                    if(first!==true){ //是否首次进入页面
-                        var p = obj.curr; //获取点击的页码
-                        window.location.href = url+"&p="+p;
-                    }
-                }
-            });
-        }
     }
 });

@@ -2,6 +2,8 @@
 
 namespace app\admin\model;
 
+use think\Exception;
+
 class Member extends Base
 {
     protected $table = "as_member";
@@ -17,29 +19,56 @@ class Member extends Base
      */
     public function saveMember($memberData)
     {
+        $isUpdate = false;
         $salt = $this->salt(8, 0);
         $saveData = [
-            'account'  => $memberData['account'],
             'name'     => $memberData['name'],
             'password' => $this->hasPassword($memberData['password'], $salt),
             'salt'     => $salt,
         ];
+        if(isset($memberData['id']) && !empty($memberData['id'])){
+            $saveData['id'] = $memberData['id'];
+            $isUpdate =  true;
+        }else{
+            $saveData['account'] = $memberData['account'];
+        }
         /**
          *  添加事务
          */
-        $res = $this->allowField(true)->save($saveData);
-        if ($res) {
-            $groupAccessModel = new GroupAccess();
-            $res1 = $groupAccessModel->allowField(true)->save(['uid' => $this->id, 'group_id' => $memberData['group_id']]);
-            if($res1){
-                return ['status' => '1','msg' => '成功'];
+        try{
+            $this->startTrans();
+            $res = $this->allowField(true)->isUpdate($isUpdate)->save($saveData);
+            if($isUpdate == false){
+                if(!$res){
+                    throw new Exception('用户添加失败');
+                }
             }else{
-                return ['status' => '0','msg' => '权限分配失败'];
+                if($res === false){
+                    throw new Exception('修改用户信息失败');
+                }
             }
-        }else{
-            return ['status' => '0','msg' => '用户添加失败'];
-        }
 
+            $groupAccessModel = new GroupAccess();
+            $res1 = $groupAccessModel
+                ->allowField(true)
+                ->isUpdate($isUpdate)
+                ->save(['uid' => $this->id, 'group_id' => $memberData['group_id']]);
+            if($isUpdate == false){
+                if(!$res1){
+                    throw new Exception('权限分配失败');
+                }
+            }else{
+                if($res1 === false){
+                    throw new Exception('权限分配失败');
+                }
+            }
+            $this->commit();
+            return ['status' => '1','msg' => '成功'];
+
+        }catch (Exception $e){
+            $this->rollback();
+            return ['status' => 0 ,'msg' => $e->getMessage()];
+        }
     }
 
     /**
@@ -58,6 +87,37 @@ class Member extends Base
         $password = $password ?: 123456;
 
         return md5(md5($password) . $salt);
+    }
+
+    /**
+     * 删除用户及角色信息
+     * @param $uid
+     *
+     * @return array
+     *
+     * @author xiongfei.ma@pactera.com
+     * @date 2017年10月19日22:43:05
+     */
+    public function deleteMember($uid)
+    {
+        try{
+            $this->startTrans();
+            $res = $this::destroy($uid);
+            if($res === false){
+                throw new Exception('删除失败');
+            }
+            $group = GroupAccess::get(['uid' => $uid]);
+            $res2 = $group->delete();
+            if(!$res2){
+                throw new Exception('删除角色信息失败');
+            }
+            $this->commit();
+            return ['status' => 1,'msg' => '用户删除成功'];
+        }catch (Exception $e){
+            $this->rollback();
+            return ['status' => 0 ,'msg' => $e->getMessage()];
+        }
+
     }
 
 }
