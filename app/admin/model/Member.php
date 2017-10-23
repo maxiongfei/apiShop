@@ -7,14 +7,38 @@ use think\Exception;
 class Member extends Base
 {
     protected $table = "as_member";
+
+    public function login($data)
+    {
+        try {
+            if (empty($data['account']) || empty($data['password'])) {
+                throw new Exception('用户名或密码不能为空');
+            }
+            $memberInfo = $this->getOne(['account' => $data['account']]);
+            if (empty($memberInfo)) {
+                throw new Exception('用户不存在');
+            }
+
+            if ($this->hasPassword($data['password'], $memberInfo['salt']) != $memberInfo['password']) {
+                throw new Exception('用户名或密码错误');
+            }
+
+            return (['status' => 1, 'msg' => '登陆成功', 'data' => $memberInfo->toArray()]);
+        } catch (Exception $e) {
+            return ['status' => 0, 'msg' => $e->getMessage()];
+        }
+    }
+
+
     /**
      * 保存管理员
+     *
      * @param $memberData
      *
      * @return array
      *
      * @author xiongfei.ma@pactera.com
-     * @date 2017年10月17日23:44:50
+     * @date   2017年10月17日23:44:50
      */
     public function saveMember($memberData)
     {
@@ -25,24 +49,24 @@ class Member extends Base
             'password' => $this->hasPassword($memberData['password'], $salt),
             'salt'     => $salt,
         ];
-        if(isset($memberData['id']) && !empty($memberData['id'])){
+        if (isset($memberData['id']) && !empty($memberData['id'])) {
             $saveData['id'] = $memberData['id'];
-            $isUpdate =  true;
-        }else{
+            $isUpdate = true;
+        } else {
             $saveData['account'] = $memberData['account'];
         }
         /**
          *  添加事务
          */
-        try{
+        try {
             $this->startTrans();
             $res = $this->allowField(true)->isUpdate($isUpdate)->save($saveData);
-            if($isUpdate == false){
-                if(!$res){
+            if ($isUpdate == false) {
+                if (!$res) {
                     throw new Exception('用户添加失败');
                 }
-            }else{
-                if($res === false){
+            } else {
+                if ($res === false) {
                     throw new Exception('修改用户信息失败');
                 }
             }
@@ -52,21 +76,23 @@ class Member extends Base
                 ->allowField(true)
                 ->isUpdate($isUpdate)
                 ->save(['uid' => $this->id, 'group_id' => $memberData['group_id']]);
-            if($isUpdate == false){
-                if(!$res1){
+            if ($isUpdate == false) {
+                if (!$res1) {
                     throw new Exception('权限分配失败');
                 }
-            }else{
-                if($res1 === false){
+            } else {
+                if ($res1 === false) {
                     throw new Exception('权限分配失败');
                 }
             }
             $this->commit();
-            return ['status' => '1','msg' => '成功'];
 
-        }catch (Exception $e){
+            return ['status' => '1', 'msg' => '成功'];
+
+        } catch (Exception $e) {
             $this->rollback();
-            return ['status' => 0 ,'msg' => $e->getMessage()];
+
+            return ['status' => 0, 'msg' => $e->getMessage()];
         }
     }
 
@@ -90,31 +116,34 @@ class Member extends Base
 
     /**
      * 删除用户及角色信息
+     *
      * @param $uid
      *
      * @return array
      *
      * @author xiongfei.ma@pactera.com
-     * @date 2017年10月19日22:43:05
+     * @date   2017年10月19日22:43:05
      */
     public function deleteMember($uid)
     {
-        try{
+        try {
             $this->startTrans();
             $res = $this::destroy($uid);
-            if($res === false){
+            if ($res === false) {
                 throw new Exception('删除失败');
             }
             $group = GroupAccess::get(['uid' => $uid]);
             $res2 = $group->delete();
-            if(!$res2){
+            if (!$res2) {
                 throw new Exception('删除角色信息失败');
             }
             $this->commit();
-            return ['status' => 1,'msg' => '用户删除成功'];
-        }catch (Exception $e){
+
+            return ['status' => 1, 'msg' => '用户删除成功'];
+        } catch (Exception $e) {
             $this->rollback();
-            return ['status' => 0 ,'msg' => $e->getMessage()];
+
+            return ['status' => 0, 'msg' => $e->getMessage()];
         }
 
     }
