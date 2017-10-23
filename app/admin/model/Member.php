@@ -7,7 +7,6 @@ use think\Exception;
 class Member extends Base
 {
     protected $table = "as_member";
-
     /**
      * 保存管理员
      * @param $memberData
