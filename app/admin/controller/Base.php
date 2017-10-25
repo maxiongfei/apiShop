@@ -9,8 +9,8 @@
 namespace app\admin\controller;
 
 
-use app\extend\auth\Auth;
 use think\Controller;
+use think\Hook;
 use think\Request;
 
 class Base extends Controller
@@ -20,20 +20,19 @@ class Base extends Controller
     protected $path = STATIC_PATH .'admin/json/navs.json';
     public function __construct(Request $request = null)
     {
+
         parent::__construct($request);
+
+        Hook::listen('checkLogin');
+        Hook::listen('checkAuth');
+
         if(!file_exists($this->path)){
             $menuModel = new \app\admin\model\Menu();
             $menuModel->refreshMenus();
         }
 
 
-        /*$module = $request->module();
-        $controller = $request->controller();
-        $action = $request->action();
-        $auth = new Auth();
-        if(!$auth->check($module . '/' . $controller . '/' . $action, session('uid'))){
-            $this->error('你没有权限访问');
-        }*/
+        /**/
     }
     public function menu2()
     {
