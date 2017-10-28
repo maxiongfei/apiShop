@@ -47,6 +47,13 @@
             <input type="hidden" name="parent_id" value="{$data['parent_id']}">
             <input type="hidden" name="mark" value="menu">
         {/notpresent}
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否隐藏</label>
+            <div class="layui-input-block">
+                <input type="radio" name="is_show" value="1" {eq name="menu.is_show" value='1'}checked{/eq} title="显示">
+                <input type="radio" name="is_show" value="0"  {eq name="menu.is_show" value='0'}checked{/eq} title="隐藏">
+            </div>
+        </div>
 
     </form>
 </div>

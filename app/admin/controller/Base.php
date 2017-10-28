@@ -9,56 +9,59 @@
 namespace app\admin\controller;
 
 
+use app\admin\model\GroupAccess;
+use app\admin\model\Group;
 use think\Controller;
 use think\Hook;
 use think\Request;
+use think\Session;
+use app\admin\model\Menu;
 
 class Base extends Controller
 {
 
 
-    protected $path = STATIC_PATH .'admin/json/navs.json';
+    protected $path = STATIC_PATH . 'admin/json/navs.json';
+    protected $menus;
+
     public function __construct(Request $request = null)
     {
 
         parent::__construct($request);
 
         Hook::listen('checkLogin');
-        Hook::listen('checkAuth');
-
-        if(!file_exists($this->path)){
-            $menuModel = new \app\admin\model\Menu();
-            $menuModel->refreshMenus();
-        }
-
-
-        /**/
+//        Hook::listen('checkAuth');
+        define('uid', Session::get('admin.id'));
+        $this->getMemberRoles();
+        $this->assignData();
     }
-    public function menu2()
+
+    /**
+     * 分配数据
+     *
+     * @author mma5694@gmail.com
+     * @date 2017年10月28日22:29:12
+     */
+    public function assignData()
     {
-        $this->assign('menus',$this->menus);
-        /*<ul class="layui-nav layui-nav-tree">
-            {foreach $menus as $menu}
-            <li class="layui-nav-item {eq name="menu['is_spread']" value="1"}layui-nav-itemed{/eq} ">
-                <a href="javascript:;" data-url="{:url($menu['name'])}">
-                    <i class="iconfont icon-computer" data-icon="{$menu.icon}"></i>
-                    <cite>{$menu.title}</cite>
-                </a>
-                {if condition="isset($menu['_child']) && empty($menu['child'])"}
-                <dl class="layui-nav-child">
-                    {foreach $menu['_child'] as $m}
-                    <dd>
-                        <a href="javascript:;" data-url="{:url($m['name'])}">
-                            <i class="layui-icon" data-icon="{$m.icon}"></i>
-                            <cite>{$m.title}</cite>
-                        </a>
-                    </dd>
-                    {/foreach}
-                </dl>
-                {/if}
-            </li>
-            {/foreach}
-        </ul>*/
+        $this->assign([
+                          'menus' => $this->menus
+                      ]);
+    }
+
+    public function getMemberRoles()
+    {
+        $group = GroupAccess::get(['uid' => Session::get('admin.id')]);
+        $access = Group::get($group->group_id);
+        $menuModel = new Menu();
+        $menus = $menuModel->refreshMenus();
+        foreach ($menus as $key => $value) {
+            if (!in_array($value['id'], explode(',', $access->rules))) {
+                unset($menus[$key]);
+            }
+        }
+        $menus = list_to_tree($menus, 'id', 'parent_id');
+        $this->menus = $menus;
     }
 
 }

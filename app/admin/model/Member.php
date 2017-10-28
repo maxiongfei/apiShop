@@ -37,7 +37,7 @@ class Member extends Base
      *
      * @return array
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date   2017年10月17日23:44:50
      */
     public function saveMember($memberData)
@@ -104,7 +104,7 @@ class Member extends Base
      *
      * @return string
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date   2017年10月17日23:21:51
      */
     public function hasPassword($password = '', $salt = '')
@@ -121,7 +121,7 @@ class Member extends Base
      *
      * @return array
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date   2017年10月19日22:43:05
      */
     public function deleteMember($uid)

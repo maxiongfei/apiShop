@@ -133,7 +133,30 @@
             <a class="img" title="我的头像"><img src="__STATIC__/admin/images/face.jpg"></a>
             <p>你好！<span class="userName">请叫我马哥</span>, 欢迎登录</p>
         </div>
-        <div class="navBar layui-side-scroll"></div>
+        <div class="navBar layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree">
+                {foreach $menus as $menu}
+                <li class="layui-nav-item {eq name="menu['is_spread']" value="1"}layui-nav-itemed{/eq} ">
+                <a href="javascript:;" data-url="{:url($menu['name'])}">
+                    <i class="iconfont icon-computer" data-icon="{$menu.icon}"></i>
+                    <cite>{$menu.title}</cite>
+                </a>
+                {if condition="isset($menu['_child']) && empty($menu['child'])"}
+                <dl class="layui-nav-child">
+                    {foreach $menu['_child'] as $m}
+                    <dd>
+                        <a href="javascript:;" data-url="{:url($m['name'])}">
+                            <i class="layui-icon" data-icon="{$m.icon}"></i>
+                            <cite>{$m.title}</cite>
+                        </a>
+                    </dd>
+                    {/foreach}
+                </dl>
+                {/if}
+                </li>
+                {/foreach}
+            </ul>
+        </div>
     </div>
     <!-- 右侧内容 -->
     <div class="layui-body layui-form">
@@ -175,7 +198,7 @@
     window.staticPath = '__STATIC__';
 </script>
 <script type="text/javascript" src="__STATIC__/admin/plugin/layui/lay/dest/layui.all.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/js/leftNav.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/admin/js/leftNav.js"></script>-->
 <script type="text/javascript" src="__STATIC__/admin/js/index.js"></script>
 </body>
 </html>

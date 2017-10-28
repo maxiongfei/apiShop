@@ -1,6 +1,6 @@
 <?php
 /**
- * @author 马雄飞 <xiongfei.ma@pactera.com>
+ * @author 马雄飞 <mma5694@gmail.com>
  * @date   2017/9/30 10:33
  */
 return [

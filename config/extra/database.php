@@ -2,7 +2,7 @@
 //扩展配置  文件名为key  return 内容为值
 use think\Env;
 /**
- * @author 马雄飞 <xiongfei.ma@pactera.com>
+ * @author 马雄飞 <mma5694@gmail.com>
  * @date   2017/9/30 10:33
  */
 return [

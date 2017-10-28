@@ -9,6 +9,8 @@
 namespace app\admin\model;
 
 
+use think\Session;
+
 class Menu extends Base
 {
     protected $table = "as_auth_rule";
@@ -81,18 +83,17 @@ class Menu extends Base
     /**
      * 更新menu
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date 2017年10月15日14:16:12
      */
     public function refreshMenus()
     {
-        $menus = $this->getAll(['type' => 1],['sort'=>'asc']);
-        array_walk($menus,function(&$val){
+        $menus = $this->getAll(['type' => 1,'is_show' => 1],['sort'=>'asc']);
+        /*array_walk($menus,function(&$val){
             if(!empty($val['name'])){
                 $val['name'] = url($val['name']);
             }
-        });
-        $menus = list_to_tree($menus, 'id', 'parent_id');
-        file_put_contents($this->path,json_encode($menus));
+        });*/
+        return $menus;
     }
 }

@@ -29,7 +29,7 @@ class Base extends Model
      *
      * @return null|static
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date   2017年10月8日14:29:59
      */
     public function getOne($where = [])
@@ -45,7 +45,7 @@ class Base extends Model
      *
      * @return array|false|static[]
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date
      */
     public function getAll($where = [], $order = [])
@@ -65,7 +65,7 @@ class Base extends Model
      *
      * @return int
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date   2017年10月17日23:15:47
      */
     public function deleteIt($where = [])
@@ -80,7 +80,7 @@ class Base extends Model
      *
      * @return string
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date 2017年10月17日23:18:31
      */
     public function salt($len = 8, $type = 0)

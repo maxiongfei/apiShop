@@ -20,7 +20,7 @@ class Group extends Base
      *
      * @return array
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date   2017-10-8 14:28:43
      */
     public function saveGroup($roleName = '')
@@ -50,7 +50,7 @@ class Group extends Base
      *
      * @return array
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date   2017年10月8日15:27:52
      */
     public function updateRecord($data)

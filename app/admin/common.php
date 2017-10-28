@@ -18,7 +18,7 @@
  *
  * @return string
  *
- * @author 马雄飞 <xiongfei.ma@pactera.com>
+ * @author 马雄飞 <mma5694@gmail.com>
  * @date
  */
 function BAC($url, $vars, $params)

@@ -86,7 +86,7 @@ class Group extends Controller
      *
      * @return \think\response\Json
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date 2017年10月16日23:16:13
      */
     public function saveAuthorize(Request $request)
@@ -123,7 +123,7 @@ class Group extends Controller
     /**
      * 更新资源
      *
-     * @author xiongfei.ma@pactera.com
+     * @author mma5694@gmail.com
      * @date   2017年10月8日14:56:56
      */
     public function update()

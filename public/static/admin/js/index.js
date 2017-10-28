@@ -139,7 +139,7 @@ layui.config({
     })
 
     //渲染左侧菜单
-    tab.render();
+    // tab.render();
 
     //锁屏
     function lockPage(){
