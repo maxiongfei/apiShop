@@ -43,6 +43,15 @@ class Menu extends Base
         return view('create', ['data' => $request->param()]);
     }
 
+    /**
+     * 添加子节点
+     * @param Request $request
+     *
+     * @return \think\response\View
+     *
+     * @author mma5694@gmail.com
+     * @date 2017年10月30日22:20:30
+     */
     public function action(Request $request)
     {
         $data = $request->param();

@@ -8,7 +8,7 @@ layui.config({
     $ = layui.jquery;
     tab = layui.bodyTab({
         openTabNum : "50",  //最大可打开窗口数量
-        url : window.staticPath+"/admin/json/navs.json" //获取菜单json地址
+        // url : window.staticPath+"/admin/json/navs.json" //获取菜单json地址
     });
 
     //更换皮肤
@@ -147,13 +147,12 @@ layui.config({
             title : false,
             type : 1,
             content : '	<div class="admin-header-lock" id="lock-box">'+
-            '<div class="admin-header-lock-img"><img src="images/face.jpg"/></div>'+
-            '<div class="admin-header-lock-name" id="lockUserName">请叫我马哥</div>'+
+           /* '<div class="admin-header-lock-img"><img src="images/face.jpg"/></div>'+
+            '<div class="admin-header-lock-name" id="lockUserName">请叫我马哥</div>'+*/
             '<div class="input_btn">'+
             '<input type="password" class="admin-header-lock-input layui-input" autocomplete="off" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />'+
             '<button class="layui-btn" id="unlock">解锁</button>'+
             '</div>'+
-            '<p>请输入“123456”，否则不会解锁成功哦！！！</p>'+
             '</div>',
             closeBtn : 0,
             shade : 0.9

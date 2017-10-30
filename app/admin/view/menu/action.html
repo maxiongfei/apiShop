@@ -30,13 +30,14 @@
             {notempty name="actions"}
             {foreach $actions as $action}
             <tr>
-                <td><input type="text" class="layui-input" name="old[$action['id']][title]" value="{$action['title']}"></td>
-                <td><input type="text" class="layui-input" name="old[$action['id']][name]" value="{$action['name']}"></td>
-                <td><input type="text" class="layui-input" name="old[$action['id']][sort]" value="{$action['sort']}"></td>
+                <input type="hidden" name="old[{$action['id']}][id]" value="{$action['id']}">
+                <td><input type="text" class="layui-input" name="old[{$action['id']}][title]" value="{$action['title']}"></td>
+                <td><input type="text" class="layui-input" name="old[{$action['id']}][name]" value="{$action['name']}"></td>
+                <td><input type="text" class="layui-input" name="old[{$action['id']}][sort]" value="{$action['sort']}"></td>
                 <td>
-                    <select name="old[$action['id']]['is_show']">
+                    <select name="old[{$action['id']}][is_show]">
                         <option value="1" {eq name="action['is_show']" value="1"}selected{/eq}>显示</option>
-                        <option value="2" {eq name="action['is_show']" value="0"}selected{/eq}>隐藏</option>
+                        <option value="0" {eq name="action['is_show']" value="0"}selected{/eq}>隐藏</option>
                     </select>
                 </td>
                 <td>

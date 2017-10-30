@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:56:"H:\www\apiShop\public/../app/admin\view\index\index.html";i:1508047557;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:56:"H:\www\apiShop\public/../app/admin\view\index\index.html";i:1509375098;}*/ ?>
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
     <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
     <!--<link rel="icon" href="favicon.ico">-->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/plugin/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_441751_d8vlxnngpeqaor.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_441751_pmg9vvdoraoflxr.css" media="all"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/main.css" media="all"/>
 </head>
 <body class="main_body">
@@ -26,33 +26,6 @@
             <a href="#" class="logo">layui后台管理</a>
             <!-- 显示/隐藏菜单 -->
             <a href="javascript:;" class="iconfont hideMenu icon-caidan"></a>
-            <!-- 搜索 -->
-            <div class="layui-form component">
-                <select name="modules" lay-verify="required" lay-search="">
-                    <option value="">直接选择或搜索选择</option>
-                    <option value="1">layer</option>
-                    <option value="2">form</option>
-                    <option value="3">layim</option>
-                    <option value="4">element</option>
-                    <option value="5">laytpl</option>
-                    <option value="6">upload</option>
-                    <option value="7">laydate</option>
-                    <option value="8">laypage</option>
-                    <option value="9">flow</option>
-                    <option value="10">util</option>
-                    <option value="11">code</option>
-                    <option value="12">tree</option>
-                    <option value="13">layedit</option>
-                    <option value="14">nav</option>
-                    <option value="15">tab</option>
-                    <option value="16">table</option>
-                    <option value="17">select</option>
-                    <option value="18">checkbox</option>
-                    <option value="19">switch</option>
-                    <option value="20">radio</option>
-                </select>
-                <i class="layui-icon">&#xe615;</i>
-            </div>
             <!-- 天气信息 -->
             <div class="weather" pc>
                 <div id="tp-weather-widget"></div>
@@ -109,8 +82,8 @@
                 </li>
                 <li class="layui-nav-item" pc>
                     <a href="javascript:;">
-                        <img src="" __STATIC__/admin/images/face.jpg" class="layui-circle" width="35" height="35">
-                        <cite>请叫我马哥</cite>
+                        <!--<img src="" __STATIC__/admin/images/face.jpg" class="layui-circle" width="35" height="35">-->
+                        <cite><?php echo \think\Session::get('admin.name'); ?></cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="iconfont icon-zhanghu"
@@ -134,7 +107,30 @@
             <a class="img" title="我的头像"><img src="__STATIC__/admin/images/face.jpg"></a>
             <p>你好！<span class="userName">请叫我马哥</span>, 欢迎登录</p>
         </div>
-        <div class="navBar layui-side-scroll"></div>
+        <div class="navBar layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree">
+                <?php foreach($menus as $menu): ?>
+                <li class="layui-nav-item <?php if($menu['is_spread'] == '1'): ?>layui-nav-itemed<?php endif; ?> ">
+                <a href="javascript:;" data-url="<?php echo url($menu['name']); ?>">
+                    <i class="iconfont <?php echo $menu['icon']; ?>" data-icon="<?php echo $menu['icon']; ?>"></i>
+                    <cite><?php echo $menu['title']; ?></cite>
+                </a>
+                <?php if(isset($menu['_child']) && empty($menu['child'])): ?>
+                <dl class="layui-nav-child">
+                    <?php foreach($menu['_child'] as $m): ?>
+                    <dd>
+                        <a href="javascript:;" data-url="<?php echo url($m['name']); ?>">
+                            <i class="iconfont <?php echo $m['icon']; ?>" data-icon="<?php echo $m['icon']; ?>"></i>
+                            <cite><?php echo $m['title']; ?></cite>
+                        </a>
+                    </dd>
+                    <?php endforeach; ?>
+                </dl>
+                <?php endif; ?>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
     </div>
     <!-- 右侧内容 -->
     <div class="layui-body layui-form">
@@ -176,7 +172,7 @@
     window.staticPath = '__STATIC__';
 </script>
 <script type="text/javascript" src="__STATIC__/admin/plugin/layui/lay/dest/layui.all.js"></script>
-<script type="text/javascript" src="__STATIC__/admin/js/leftNav.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/admin/js/leftNav.js"></script>-->
 <script type="text/javascript" src="__STATIC__/admin/js/index.js"></script>
 </body>
 </html>

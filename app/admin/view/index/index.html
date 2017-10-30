@@ -14,7 +14,7 @@
     <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
     <!--<link rel="icon" href="favicon.ico">-->
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/plugin/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_441751_d8vlxnngpeqaor.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_441751_pmg9vvdoraoflxr.css" media="all"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/main.css" media="all"/>
 </head>
 <body class="main_body">
@@ -25,33 +25,6 @@
             <a href="#" class="logo">layui后台管理</a>
             <!-- 显示/隐藏菜单 -->
             <a href="javascript:;" class="iconfont hideMenu icon-caidan"></a>
-            <!-- 搜索 -->
-            <div class="layui-form component">
-                <select name="modules" lay-verify="required" lay-search="">
-                    <option value="">直接选择或搜索选择</option>
-                    <option value="1">layer</option>
-                    <option value="2">form</option>
-                    <option value="3">layim</option>
-                    <option value="4">element</option>
-                    <option value="5">laytpl</option>
-                    <option value="6">upload</option>
-                    <option value="7">laydate</option>
-                    <option value="8">laypage</option>
-                    <option value="9">flow</option>
-                    <option value="10">util</option>
-                    <option value="11">code</option>
-                    <option value="12">tree</option>
-                    <option value="13">layedit</option>
-                    <option value="14">nav</option>
-                    <option value="15">tab</option>
-                    <option value="16">table</option>
-                    <option value="17">select</option>
-                    <option value="18">checkbox</option>
-                    <option value="19">switch</option>
-                    <option value="20">radio</option>
-                </select>
-                <i class="layui-icon">&#xe615;</i>
-            </div>
             <!-- 天气信息 -->
             <div class="weather" pc>
                 <div id="tp-weather-widget"></div>
@@ -108,8 +81,8 @@
                 </li>
                 <li class="layui-nav-item" pc>
                     <a href="javascript:;">
-                        <img src="" __STATIC__/admin/images/face.jpg" class="layui-circle" width="35" height="35">
-                        <cite>请叫我马哥</cite>
+                        <!--<img src="" __STATIC__/admin/images/face.jpg" class="layui-circle" width="35" height="35">-->
+                        <cite>{$Think.session.admin.name}</cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="iconfont icon-zhanghu"
@@ -138,7 +111,7 @@
                 {foreach $menus as $menu}
                 <li class="layui-nav-item {eq name="menu['is_spread']" value="1"}layui-nav-itemed{/eq} ">
                 <a href="javascript:;" data-url="{:url($menu['name'])}">
-                    <i class="iconfont icon-computer" data-icon="{$menu.icon}"></i>
+                    <i class="iconfont {$menu.icon}" data-icon="{$menu.icon}"></i>
                     <cite>{$menu.title}</cite>
                 </a>
                 {if condition="isset($menu['_child']) && empty($menu['child'])"}
@@ -146,7 +119,7 @@
                     {foreach $menu['_child'] as $m}
                     <dd>
                         <a href="javascript:;" data-url="{:url($m['name'])}">
-                            <i class="layui-icon" data-icon="{$m.icon}"></i>
+                            <i class="iconfont {$m.icon}" data-icon="{$m.icon}"></i>
                             <cite>{$m.title}</cite>
                         </a>
                     </dd>

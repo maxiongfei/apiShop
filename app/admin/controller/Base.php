@@ -30,8 +30,8 @@ class Base extends Controller
         parent::__construct($request);
 
         Hook::listen('checkLogin');
-//        Hook::listen('checkAuth');
-        define('uid', Session::get('admin.id'));
+        Hook::listen('checkAuth');
+        define('UID', Session::get('admin.id'));
         $this->getMemberRoles();
         $this->assignData();
     }
@@ -40,28 +40,33 @@ class Base extends Controller
      * 分配数据
      *
      * @author mma5694@gmail.com
-     * @date 2017年10月28日22:29:12
+     * @date   2017年10月28日22:29:12
      */
     public function assignData()
     {
-        $this->assign([
-                          'menus' => $this->menus
-                      ]);
+        $this->assign(
+            [
+                'menus' => $this->menus
+            ]
+        );
     }
 
     public function getMemberRoles()
     {
         $group = GroupAccess::get(['uid' => Session::get('admin.id')]);
-        $access = Group::get($group->group_id);
-        $menuModel = new Menu();
-        $menus = $menuModel->refreshMenus();
-        foreach ($menus as $key => $value) {
-            if (!in_array($value['id'], explode(',', $access->rules))) {
-                unset($menus[$key]);
+        if (!empty($group)) {
+            $access = Group::get($group->group_id);
+            $menuModel = new Menu();
+            $menus = $menuModel->refreshMenus();
+            foreach ($menus as $key => $value) {
+                if (!in_array($value['id'], explode(',', $access->rules))) {
+                    unset($menus[$key]);
+                }
             }
+            $menus = list_to_tree($menus, 'id', 'parent_id');
+            $this->menus = $menus;
         }
-        $menus = list_to_tree($menus, 'id', 'parent_id');
-        $this->menus = $menus;
+
     }
 
 }

@@ -1,4 +1,7 @@
 <?php
+
+use \think\Session;
+use \app\admin\model\Menu;
 /**
  *
  * @param $url
@@ -23,6 +26,7 @@
  */
 function BAC($url, $vars, $params)
 {
+    $uid = Session::get('admin.id');
     $name = $params['name'];
     $status = false;
     $data = '';
@@ -41,31 +45,28 @@ function BAC($url, $vars, $params)
             break;
     }
     $url = implode('/', $urlArr);
-    if (false) {
-        $auth = new \app\extend\auth\Auth();
-        $groups = $auth->getGroups(USER_SELLER_ID);
+
+    $auth = new \app\extend\auth\Auth();
+    $groups = $auth->getGroups($uid);
+    if (($groups[0]['uid'] == 1 && $groups[0]['title'] == 'supermen')) {
         $menuIds = [];
         foreach ($groups as $g) {
             $menuIds = array_merge($menuIds, explode(',', trim($g['rules'], ',')));
         }
-        $menus = [];
-        $menu = D('MallMenu')->getMenusByIds($menuIds);
-        array_walk($menu, function ($val) use (&$menus) {
-            $menus[$val['id']] = $val;
-        });
-
-        foreach ($menus as $k => $v) {
+        $menuModel = new Menu();
+        $menu = $menuModel->getAll(['id'=>['in',$menuIds]]);
+        foreach ($menu as $k => $v) {
             if (strtolower($v['name']) == strtolower($url)) {
                 $status = true;
             }
         }
-        //无需权限校验部分
+       /* //无需权限校验部分
         $allowName = array_map(function (&$val) {
             return strtolower($val);
-        }, C('NOT_CHECK_URL'));
+        }, ('NOT_CHECK_URL'));
         if (in_array(strtolower($url), $allowName)) {
             $status = true;
-        }
+        }*/
     } else {
         $status = true;
     }
